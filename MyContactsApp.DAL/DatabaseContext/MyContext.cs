@@ -21,7 +21,7 @@ namespace MyContactsApp.DAL.DatabaseContext
             .WithMany(b => b.Contacts)
             .HasForeignKey(c => c.CategoryId);
             modelBuilder.Entity<Category>().HasData(
-            new Category { Id = 1, Name = "służbowy" },
+            new Category { Id = 1, Name = "sluzbowy" },
             new Category { Id = 2, Name = "prywatny" },
             new Category { Id = 3, Name = "inny" }
             );
