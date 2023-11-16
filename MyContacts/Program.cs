@@ -3,6 +3,7 @@ using MyContactsApp.DAL.DatabaseContext;
 using MyContactsApp.DAL.Commands.Contacts;
 using MyContactsApp.DAL.Repositories.Interfaces;
 using MyContactsApp.DAL.Repositories;
+using MyContactsApp.DAL.Mapping;
 using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +26,9 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 // Adding MediatR to project
 builder.Services.AddMediatR(typeof(CreateContactCommand));
+
+// Adding AutoMapper to project
+builder.Services.AddAutoMapper(typeof(Mapping));
 
 var app = builder.Build();
 

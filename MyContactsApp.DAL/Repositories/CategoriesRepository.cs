@@ -17,7 +17,6 @@ namespace MyContactsApp.DAL.Repositories
         public async Task<Category> GetCategoryByNameAsync(string name)
         {
             return await _context.Categories
-                                 .Include(c => c.Contacts)
                                  .FirstOrDefaultAsync(c => c.Name == name);
         }
     }

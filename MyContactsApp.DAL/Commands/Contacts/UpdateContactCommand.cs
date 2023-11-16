@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MyContactsApp.DAL.DTOs;
+using MyContactsApp.DAL.Exceptions;
 using MyContactsApp.DAL.Models;
 using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Contacts
 {
-    public class UpdateContactCommand : IRequest<int>
+    public class UpdateContactCommand : IRequest<Contact>
     {
         public int Id { get; }
         public ContactDTO ContactDto { get; }
@@ -17,34 +19,38 @@ namespace MyContactsApp.DAL.Commands.Contacts
         }
     }
 
-    public class UpdateContactHandler : IRequestHandler<UpdateContactCommand, int>
+    public class UpdateContactHandler : IRequestHandler<UpdateContactCommand, Contact>
     {
         private readonly IContactsRepository _contactsRepository;
         private readonly ICategoriesRepository _categoriesRepository;
+        private readonly IMapper _mapper;
 
-        public UpdateContactHandler(IContactsRepository contactsRepository, ICategoriesRepository categoriesRepository)
+        public UpdateContactHandler(IContactsRepository contactsRepository, ICategoriesRepository categoriesRepository, IMapper mapper)
         {
             _contactsRepository = contactsRepository;
             _categoriesRepository = categoriesRepository;
+            _mapper = mapper;
         }
 
-        public async Task<int> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
+        public async Task<Contact> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoriesRepository.GetCategoryByNameAsync(request.ContactDto.Category);
-            var contact = new Contact
+            var contact = await _contactsRepository.GetContactByIdAsync(request.Id);
+            if (contact == null)
             {
-                Id = request.Id,
-                FirstName = request.ContactDto.FirstName,
-                LastName = request.ContactDto.LastName,
-                Email = request.ContactDto.Email,
-                CategoryId = category.Id,
-                Subcategory = request.ContactDto.Subcategory,
-                PhoneNumber = request.ContactDto.PhoneNumber,
-                Birthdate = request.ContactDto.Birthdate
-            };
+                throw new ContactNotFoundException($"Contact with ID {request.Id} not found.");
+            }
+
+            var category = await _categoriesRepository.GetCategoryByNameAsync(request.ContactDto.Category);
+            if (category == null)
+            {
+                throw new CategoryNotFoundException($"Category with name {request.ContactDto.Category} not found.");
+            }
+
+            _mapper.Map(request.ContactDto, contact);
+
+            contact.CategoryId = category.Id;
 
             return await _contactsRepository.UpdateContactAsync(contact);
         }
     }
-
 }

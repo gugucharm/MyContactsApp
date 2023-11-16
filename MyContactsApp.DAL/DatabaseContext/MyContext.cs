@@ -16,15 +16,17 @@ namespace MyContactsApp.DAL.DatabaseContext
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
+
             modelBuilder.Entity<Contact>()
-            .HasOne(c => c.Category)
-            .WithMany(b => b.Contacts)
-            .HasForeignKey(c => c.CategoryId);
+                .HasOne<Category>()
+                .WithMany()
+                .HasForeignKey(c => c.CategoryId);
+
             modelBuilder.Entity<Category>().HasData(
-            new Category { Id = 1, Name = "sluzbowy" },
-            new Category { Id = 2, Name = "prywatny" },
-            new Category { Id = 3, Name = "inny" }
-            );
+                new Category { Id = 1, Name = "sluzbowy" },
+                new Category { Id = 2, Name = "prywatny" },
+                new Category { Id = 3, Name = "inny" }
+                );
         }
     }
 }

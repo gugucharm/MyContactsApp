@@ -10,6 +10,5 @@
         public string Subcategory { get; set; }
         public int PhoneNumber { get; set; }
         public DateTime Birthdate { get; set; }
-        public Category Category { get; set; }
     }
 }
