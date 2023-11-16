@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MyContactsApp.DAL\MyContactsApp.DAL.csproj" />
   </ItemGroup>
 
