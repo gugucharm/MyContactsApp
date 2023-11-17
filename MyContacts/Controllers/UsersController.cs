@@ -14,11 +14,26 @@ public class UsersController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateContact([FromBody] UserDTO userDto)
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserDTO userDto)
     {
-        var command = new CreateUserCommand(userDto);
-        var contactId = await _mediator.Send(command);
-        return Ok(contactId);
+        var command = new RegisterUserCommand(userDto);
+        var user = await _mediator.Send(command);
+        return Ok(user);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
+    {
+        try
+        {
+            var command = new LoginUserCommand(loginDto);
+            var token = await _mediator.Send(command);
+            return Ok(new { token });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
     }
 }

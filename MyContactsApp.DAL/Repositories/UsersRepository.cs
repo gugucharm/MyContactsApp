@@ -1,4 +1,5 @@
-﻿using MyContactsApp.DAL.DatabaseContext;
+﻿using Microsoft.EntityFrameworkCore;
+using MyContactsApp.DAL.DatabaseContext;
 using MyContactsApp.DAL.Models;
 using MyContactsApp.DAL.Repositories.Interfaces;
 
@@ -13,11 +14,15 @@ namespace MyContactsApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<int> AddUserAsync(User user)
+        public async Task<User> AddUserAsync(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return user.Id;
+            return user;
+        }
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

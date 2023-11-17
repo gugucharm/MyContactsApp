@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyContactsApp.DAL.Commands.Contacts;
 using MyContactsApp.DAL.DTOs;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class ContactsController : ControllerBase

@@ -9,7 +9,12 @@ namespace MyContactsApp.DAL.Mapping
         {
             CreateMap<ContactDTO, Contact>()
                 .ForMember(dest => dest.CategoryId, opt => opt.Ignore());
-            CreateMap<UserDTO, User>();
+
+            CreateMap<UserDTO, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => BCrypt.Net.BCrypt.HashPassword(src.Password)))
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<SubcategoryDTO, Subcategory>();
         }
     }
 }
