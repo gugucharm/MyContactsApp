@@ -30,6 +30,11 @@ namespace MyContactsApp.DAL.Commands.Users
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
+            if (!EmailUtility.IsValidEmail(request.UserDto.Email))
+            {
+                throw new InvalidEmailException("Email is not in a valid format.");
+            }
+
             var existingUser = await _userRepository.GetUserByEmailAsync(request.UserDto.Email);
             if (existingUser != null)
             {
