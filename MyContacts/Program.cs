@@ -12,6 +12,12 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Explicitly set the port
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenLocalhost(8000);
+});
+
 // Defining connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -58,7 +64,7 @@ builder.Services.AddSwaggerGen(options =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
-        Scheme = "bearer", // Note the lowercase 'b'
+        Scheme = "bearer",
         BearerFormat = "JWT"
     });
 
@@ -78,6 +84,17 @@ builder.Services.AddSwaggerGen(options =>
             },
             new List<string>()
         }
+    });
+});
+
+// Configuring CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Ensure this matches your React app's URL
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -105,7 +122,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
