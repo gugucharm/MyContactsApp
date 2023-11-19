@@ -213,7 +213,7 @@ Repositories handle the data operations with the database, abstracting the compl
   "Issuer": "MyLocalApp",
   "Audience": "LocalDevelopment",
   "AccessTokenExpirationMinutes": 60
-}
+}```
 
 - Then go to MyContactsApp/MyContacts folder and run the following commands:
 ``dotnet ef migrations add init --project ..\MyContactsApp.DAL\``
