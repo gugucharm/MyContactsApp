@@ -1,4 +1,5 @@
-﻿using MyContactsApp.DAL.DatabaseContext;
+﻿using Microsoft.EntityFrameworkCore;
+using MyContactsApp.DAL.DatabaseContext;
 using MyContactsApp.DAL.Models;
 using MyContactsApp.DAL.Repositories.Interfaces;
 
@@ -18,6 +19,11 @@ namespace MyContactsApp.DAL.Repositories
             _context.Subcategories.Add(subcategory);
             await _context.SaveChangesAsync();
             return subcategory;
+        }
+
+        public async Task<List<Subcategory>> GetAllSubcategoriesAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Subcategories.ToListAsync(cancellationToken);
         }
     }
 }

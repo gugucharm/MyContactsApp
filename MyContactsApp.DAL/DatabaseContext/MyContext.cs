@@ -19,9 +19,8 @@ namespace MyContactsApp.DAL.DatabaseContext
                 .IsUnique();
 
             modelBuilder.Entity<Contact>()
-                .HasOne<Category>()
-                .WithMany()
-                .HasForeignKey(c => c.CategoryId);
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "sluzbowy" },
@@ -30,8 +29,9 @@ namespace MyContactsApp.DAL.DatabaseContext
                 );
 
             modelBuilder.Entity<Subcategory>().HasData(
-                new Subcategory { Id = 1, Name = "szef" },
-                new Subcategory { Id = 2, Name = "klient" }
+                new Subcategory { Id = 1, Name = "none" },
+                new Subcategory { Id = 2, Name = "szef" },
+                new Subcategory { Id = 3, Name = "klient" }
                 );
         }
     }

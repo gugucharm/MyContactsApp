@@ -40,15 +40,14 @@ namespace MyContactsApp.DAL.Commands.Contacts
                 throw new ContactNotFoundException($"Contact with ID {request.Id} not found.");
             }
 
-            var category = await _categoriesRepository.GetCategoryByNameAsync(request.ContactDto.Category);
+            var category = await _categoriesRepository.GetCategoryByIdAsync(request.ContactDto.CategoryId, cancellationToken);
             if (category == null)
             {
-                throw new CategoryNotFoundException($"Category with name {request.ContactDto.Category} not found.");
+                throw new CategoryNotFoundException($"Category with Id {request.ContactDto.CategoryId} not found.");
             }
 
             _mapper.Map(request.ContactDto, contact);
-
-            contact.CategoryId = category.Id;
+            contact.Category = category;
 
             return await _contactsRepository.UpdateContactAsync(contact);
         }
