@@ -1,12 +1,10 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyContactsApp.DAL.Commands.Subcategories;
 using MyContactsApp.DAL.DTOs;
 
 namespace MySubcategoriesApp.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class SubcategoriesController : ControllerBase
@@ -24,6 +22,14 @@ namespace MySubcategoriesApp.API.Controllers
             var command = new CreateSubcategoryCommand(subcategoryDTO);
             var subcategory = await _mediator.Send(command);
             return Ok(subcategory);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllSubcategories()
+        {
+            var query = new GetAllSubcategoriesQuery();
+            var subcategories = await _mediator.Send(query);
+            return Ok(subcategories);
         }
     }
 }

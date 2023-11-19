@@ -14,9 +14,14 @@ namespace MyContactsApp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<Category> GetCategoryByNameAsync(string name)
+        public async Task<Category> GetCategoryByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
+            return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        }
+
+        public async Task<List<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Categories.ToListAsync(cancellationToken);
         }
     }
 }

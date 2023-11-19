@@ -32,15 +32,16 @@ namespace MyContactsApp.DAL.Commands.Contacts
 
         public async Task<Contact> Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
-            var category = await _categoriesRepository.GetCategoryByNameAsync(request.ContactDto.Category);
+            var category = await _categoriesRepository.GetCategoryByIdAsync(request.ContactDto.CategoryId, cancellationToken);
             if (category == null)
             {
-                throw new CategoryNotFoundException($"Category with name {request.ContactDto.Category} not found.");
+                throw new CategoryNotFoundException($"Category with Id {request.ContactDto.CategoryId} not found.");
             }
 
             var contact = _mapper.Map<Contact>(request.ContactDto);
 
             contact.CategoryId = category.Id;
+            contact.Category = category;
 
             return await _contactsRepository.AddContactAsync(contact);
         }

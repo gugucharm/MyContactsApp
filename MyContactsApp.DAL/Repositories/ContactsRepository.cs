@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyContactsApp.DAL.DatabaseContext;
+using MyContactsApp.DAL.DTOs;
 using MyContactsApp.DAL.Models;
 using MyContactsApp.DAL.Repositories.Interfaces;
 
@@ -44,6 +45,22 @@ namespace MyContactsApp.DAL.Repositories
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Contact>> GetAllContactsAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Contacts
+                                 .Include(c => c.Category)
+                                 .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Contact> GetContactByEmailAsync(string email)
+        {
+            var contact = await _context.Contacts
+                                        .Where(c => c.Email == email)
+                                        .FirstOrDefaultAsync();
+
+            return contact;
         }
     }
 }
