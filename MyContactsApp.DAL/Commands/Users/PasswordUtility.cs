@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyContactsApp.DAL.Commands.Users
 {
+    // This static class enables checking the validity
+    // of a password before registering a new User
     public static class PasswordUtility
     {
         public static bool IsPasswordSecure(string password)

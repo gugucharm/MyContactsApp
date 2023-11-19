@@ -20,7 +20,6 @@ const Login = ({ onLoginSuccess }) => {
       onLoginSuccess();
     } catch (error) {
       console.error('Login error:', error);
-      // Optionally, handle login failure (e.g., showing an error message)
     }
   };
 

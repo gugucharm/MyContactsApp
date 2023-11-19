@@ -12,15 +12,20 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Port Configuration
 // Explicitly set the port
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ListenLocalhost(8000);
 });
+#endregion
 
+#region Database Connection
 // Defining connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+#endregion
 
+#region JWT Configuration
 // Configuring JWT
 var secretKey = builder.Configuration.GetValue<string>("JwtConfig:Secret");
 if (string.IsNullOrWhiteSpace(secretKey))
@@ -30,6 +35,7 @@ if (string.IsNullOrWhiteSpace(secretKey))
 
 var key = Encoding.ASCII.GetBytes(secretKey);
 
+// Setting up authentication
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,10 +54,14 @@ builder.Services.AddAuthentication(x =>
         ClockSkew = TimeSpan.FromMinutes(Convert.ToDouble(builder.Configuration["JwtConfig:AccessTokenExpirationMinutes"]))
     };
 });
+#endregion
 
+#region Basic Service Configuration
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+#endregion
 
+#region Swagger Configuration
 // Configuring Swagger to understand and use JWT tokens
 builder.Services.AddSwaggerGen(options =>
 {
@@ -86,7 +96,9 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+#endregion
 
+#region CORS Configuration
 // Configuring CORS
 builder.Services.AddCors(options =>
 {
@@ -97,7 +109,9 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+#endregion
 
+#region Database Service Configuration
 // Connecting to Postgres
 builder.Services.AddDbContext<MyContext>(options =>
     options.UseNpgsql(connectionString));
@@ -107,15 +121,19 @@ builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ISubcategoriesRepository, SubcategoriesRepository>();
+#endregion
 
+#region MediatR and AutoMapper Configuration
 // Adding MediatR to project
 builder.Services.AddMediatR(typeof(CreateContactCommand));
 
 // Adding AutoMapper to project
 builder.Services.AddAutoMapper(typeof(Mapping));
+#endregion
 
 var app = builder.Build();
 
+#region Application Configuration
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -130,3 +148,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+#endregion

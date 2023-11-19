@@ -28,7 +28,7 @@ function App() {
   };
 
   const handleContactAdded = () => {
-    fetchContacts(); // Re-fetch contacts to update the list with the new contact
+    fetchContacts();
   };
 
   const handleContactUpdated = () => {

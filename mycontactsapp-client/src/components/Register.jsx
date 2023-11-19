@@ -18,10 +18,8 @@ const Register = () => {
     try {
       const response = await axios.post('http://localhost:8000/users/register', user);
       console.log(response.data);
-      // Handle success (e.g., redirect to login page)
     } catch (error) {
       console.error(error);
-      // Handle error
     }
   };
 
