@@ -1,6 +1,6 @@
 # MyContactsApp Documentation
 
-This README outlines the libraries, classes and methods descriptions, as well as the process of compiling the project.
+This README outlines the libraries, classes' and methods' descriptions, as well as the process of compiling the project.
 
 ## Libraries and frameworks used in the project
 
@@ -30,7 +30,7 @@ This README outlines the libraries, classes and methods descriptions, as well as
 ### API Documentation
 - Swashbuckle.AspNetCore
 
-## Classes and methods descriptions
+## Classes' and methods' descriptions
 
 ### Controllers
 
@@ -193,3 +193,37 @@ Repositories handle the data operations with the database, abstracting the compl
 - Handles user-related operations, including adding users and fetching users by email.
 
 ## The process of compiling and running the project
+
+### Cloning the repository
+- Open powershell in the destined location
+- Run git clone https://github.com/gugucharm/MyContactsApp.git
+- If you can't see the project's folder, refresh the folder you're in
+- Open MyContactsApp folder
+
+### Starting the backend
+- If you have your pgAdmin running, open MyContactsApp.sln in visual studio
+- Go to MyContactsApp.API/appsettings.json
+- Add th following code to your appsettings:
+"ConnectionStrings": {
+  "DefaultConnection": "YourConnectionString"
+},
+"JwtConfig": {
+  "Secret": "YourSecret,",
+  "Issuer": "MyLocalApp",
+  "Audience": "LocalDevelopment",
+  "AccessTokenExpirationMinutes": 60
+}
+- Then go to MyContactsApp/MyContacts folder and run the following commands:
+dotnet ef migrations add init --project ..\MyContactsApp.DAL\
+and
+dotnet ef database update
+
+- The backend is now ready to run and after that you can proceed to starting our front-end
+
+### Starting the front-end
+- Open MyContactsApp/mycontactsapp-client folder in visual studio code (preferably)
+- Open the terminal with View --> Terminal
+- Run npm install in the terminal
+- After successful installation, run npm start
+- If the project start without any error, you are good to go and now you can use this app, have fun!
+
