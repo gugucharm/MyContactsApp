@@ -203,7 +203,7 @@ Repositories handle the data operations with the database, abstracting the compl
 ### Starting the backend
 - If you have your pgAdmin running, open MyContactsApp.sln in visual studio
 - Go to MyContactsApp.API/appsettings.json
-- Add th following code to your appsettings:
+- Add the following code to your appsettings:
 ```
 "ConnectionStrings": {
   "DefaultConnection": "YourConnectionString"
@@ -228,5 +228,5 @@ and
 - Open the terminal with View --> Terminal
 - Run npm install in the terminal
 - After successful installation, run npm start
-- If the project start without any error, you are good to go and now you can use this app, have fun!
+- If the project starts without any error, you are good to go and now you can use this app, have fun!
 
