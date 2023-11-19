@@ -204,6 +204,7 @@ Repositories handle the data operations with the database, abstracting the compl
 - If you have your pgAdmin running, open MyContactsApp.sln in visual studio
 - Go to MyContactsApp.API/appsettings.json
 - Add th following code to your appsettings:
+```json
 "ConnectionStrings": {
   "DefaultConnection": "YourConnectionString"
 },
@@ -213,10 +214,11 @@ Repositories handle the data operations with the database, abstracting the compl
   "Audience": "LocalDevelopment",
   "AccessTokenExpirationMinutes": 60
 }
+
 - Then go to MyContactsApp/MyContacts folder and run the following commands:
-dotnet ef migrations add init --project ..\MyContactsApp.DAL\
+``dotnet ef migrations add init --project ..\MyContactsApp.DAL\``
 and
-dotnet ef database update
+``dotnet ef database update``
 
 - The backend is now ready to run and after that you can proceed to starting our front-end
 
