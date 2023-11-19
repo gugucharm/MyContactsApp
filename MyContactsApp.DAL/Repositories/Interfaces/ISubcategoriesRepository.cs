@@ -2,6 +2,7 @@
 
 namespace MyContactsApp.DAL.Repositories.Interfaces
 {
+    // Public interface to work with Subcategories table
     public interface ISubcategoriesRepository
     {
         Task<Subcategory> AddSubcategoryAsync(Subcategory subcategory);

@@ -7,6 +7,8 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Contacts
 {
+    // Here we define the MediatR's command and it's handler
+    // for creating a Contact in the database
     public class CreateContactCommand : IRequest<Contact>
     {
         public ContactDTO ContactDto { get; }
@@ -17,6 +19,10 @@ namespace MyContactsApp.DAL.Commands.Contacts
         }
     }
 
+    // The handler leverages ContactsRepository and CategoriesRepository
+    // classes to conduct to first make sure the category we're looking
+    // for exists, and then adds the Contact to the database. It also
+    // uses mapping for Contact model
     public class CreateContactHandler : IRequestHandler<CreateContactCommand, Contact>
     {
         private readonly IContactsRepository _contactsRepository;

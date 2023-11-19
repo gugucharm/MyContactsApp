@@ -7,6 +7,8 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Users
 {
+    // Here we define the MediatR's command and it's handler
+    // for registering a user in the database
     public class RegisterUserCommand : IRequest<User>
     {
         public UserDTO UserDto { get; }
@@ -17,6 +19,11 @@ namespace MyContactsApp.DAL.Commands.Users
         }
     }
 
+    // The handler leverages UserssRepository class and helper
+    // methods to check the validity of both the email and the
+    // password typed in by the client. It also uses the mapper
+    // to convert UserDTO to a User and returns it after successful
+    // operation
     public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, User>
     {
         private readonly IUsersRepository _userRepository;

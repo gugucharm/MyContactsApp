@@ -4,6 +4,8 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Contacts
 {
+    // Here we define the MediatR's command and it's handler
+    // for fetching a contact by it's email
     public class GetContactByEmailQuery : IRequest<Contact>
     {
         public string Email { get; }
@@ -14,6 +16,8 @@ namespace MyContactsApp.DAL.Commands.Contacts
         }
     }
 
+    // The handler leverages ContactsRepository class to conduct
+    // this operation by email, because it's unique for every Contact
     public class GetContactByEmailQueryHandler : IRequestHandler<GetContactByEmailQuery, Contact>
     {
         private readonly IContactsRepository _contactsRepository;

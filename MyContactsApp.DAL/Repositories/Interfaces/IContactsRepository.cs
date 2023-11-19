@@ -1,8 +1,8 @@
-﻿using MyContactsApp.DAL.DTOs;
-using MyContactsApp.DAL.Models;
+﻿using MyContactsApp.DAL.Models;
 
 namespace MyContactsApp.DAL.Repositories.Interfaces
 {
+    // Public interface to work with Contacts table
     public interface IContactsRepository
     {
         Task<Contact> GetContactByIdAsync(int id);

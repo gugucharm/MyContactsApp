@@ -1,5 +1,8 @@
 ﻿namespace MyContactsApp.DAL.Models
 {
+    // We define two foreign keys for the Contact model
+    // and a Category type field to include all concerned
+    // information in response when fetching Contacts
     public class Contact
     {
         public int Id { get; set; }

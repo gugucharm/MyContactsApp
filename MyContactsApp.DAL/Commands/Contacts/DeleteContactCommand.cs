@@ -3,6 +3,8 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Contacts
 {
+    // Here we define the MediatR's command and it's handler
+    // for deleting a Contact from the database
     public class DeleteContactCommand : IRequest<bool>
     {
         public int Id { get; }
@@ -13,6 +15,8 @@ namespace MyContactsApp.DAL.Commands.Contacts
         }
     }
 
+    // The handler leverages ContactsRepository class to delete
+    // the contact only using it's id
     public class DeleteContactHandler : IRequestHandler<DeleteContactCommand, bool>
     {
         private readonly IContactsRepository _contactsRepository;

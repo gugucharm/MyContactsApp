@@ -5,19 +5,21 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Contacts
 {
+    // Here we define the MediatR's command and it's handler
+    // for fetching all Contaats from the database
     public class GetAllContactsQuery : IRequest<List<Contact>>
     {
     }
 
+    // The handler leverages ContactsRepository class to conduct
+    // the operation
     public class GetAllContactsHandler : IRequestHandler<GetAllContactsQuery, List<Contact>>
     {
         private readonly IContactsRepository _contactsRepository;
-        private readonly IMapper _mapper;
 
         public GetAllContactsHandler(IContactsRepository contactsRepository, IMapper mapper)
         {
             _contactsRepository = contactsRepository;
-            _mapper = mapper;
         }
 
         public async Task<List<Contact>> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)

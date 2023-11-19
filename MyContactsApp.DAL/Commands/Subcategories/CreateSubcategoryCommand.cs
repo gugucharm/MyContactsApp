@@ -8,6 +8,8 @@ using MyContactsApp.DAL.Repositories.Interfaces;
 
 namespace MyContactsApp.DAL.Commands.Subcategories
 {
+    // Here we define the MediatR's command and it's handler
+    // for creating a Subcategory
     public class CreateSubcategoryCommand : IRequest<Subcategory>
     {
         public SubcategoryDTO SubcategoryDTO { get; }
@@ -18,6 +20,9 @@ namespace MyContactsApp.DAL.Commands.Subcategories
         }
     }
 
+    // The handler leverages ContactsRepository class to conduct
+    // this operation with the help of a mapper to convert
+    // SubcategoryDTO to Subcategory model
     public class CreateSubcategoryHandler : IRequestHandler<CreateSubcategoryCommand, Subcategory>
     {
         private readonly ISubcategoriesRepository _subcategoriesRepository;

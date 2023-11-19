@@ -7,6 +7,7 @@ using System.Text;
 
 namespace MyContactsApp.DAL.JWT
 {
+    // Static class for the use of generating a token for the client
     public static class JwtTokenGenerator
     {
         public static string GenerateJwtToken(User user, IConfiguration configuration)
