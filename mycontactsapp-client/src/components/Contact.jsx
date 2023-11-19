@@ -5,7 +5,6 @@ import DeleteContactButton from './DeleteContactButton';
 const Contact = ({ contact, categories, subcategories, onDeleteSuccess }) => {
   const [showDetails, setShowDetails] = useState(false);
 
-  // Find the category and subcategory names based on their IDs
   const categoryName = categories.find(cat => cat.id === contact.categoryId)?.name;
   const subcategoryName = subcategories.find(sub => sub.id === contact.subcategoryId)?.name;
 
@@ -19,7 +18,6 @@ const Contact = ({ contact, categories, subcategories, onDeleteSuccess }) => {
 
       {showDetails && (
         <div>
-          {/* Display category and subcategory names instead of IDs */}
           <p>Category: {categoryName || 'Unknown'}</p>
           <p>Subcategory: {subcategoryName || 'Unknown'}</p>
           <p>Phone Number: {contact.phoneNumber}</p>

@@ -17,7 +17,7 @@ namespace MySubcategoriesApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContact([FromBody] SubcategoryDTO subcategoryDTO)
+        public async Task<IActionResult> CreateSubcategory([FromBody] SubcategoryDTO subcategoryDTO)
         {
             var command = new CreateSubcategoryCommand(subcategoryDTO);
             var subcategory = await _mediator.Send(command);

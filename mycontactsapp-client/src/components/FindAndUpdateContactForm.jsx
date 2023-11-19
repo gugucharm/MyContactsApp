@@ -16,7 +16,7 @@ const FindAndUpdateContactForm = ({ onContactUpdated }) => {
       const response = await axios.get(`http://localhost:8000/contacts/findByEmail/${emailToFind}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      setContactData(response.data); // Assuming this response contains the contact data
+      setContactData(response.data);
     } catch (error) {
       console.error('Error finding contact:', error);
     }
