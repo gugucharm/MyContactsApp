@@ -196,7 +196,7 @@ Repositories handle the data operations with the database, abstracting the compl
 
 ### Cloning the repository
 - Open powershell in the destined location
-- Run git clone https://github.com/gugucharm/MyContactsApp.git
+- Run ``git clone https://github.com/gugucharm/MyContactsApp.git``
 - If you can't see the project's folder, refresh the folder you're in
 - Open MyContactsApp folder
 
@@ -216,7 +216,7 @@ Repositories handle the data operations with the database, abstracting the compl
 }
 ```
 
-- Then go to MyContactsApp/MyContacts folder and run the following commands:
+- Then go to MyContactsApp/MyContacts folder and run the following commands in powershell:
 ``dotnet ef migrations add init --project ..\MyContactsApp.DAL\``
 and
 ``dotnet ef database update``
